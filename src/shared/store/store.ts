@@ -13,7 +13,7 @@ export const $inputValue = createStore('').on(inputChanged, (_, newValue) => new
 export const $repositories = createStore([]).reset(inputChanged);
 
 export const fetchDataFromGithub = createEffect(async (query: any) => {
-    const response: { search: any } = await request('https://api.github.com/graphql', SEARCH_REPOSITORIES, {
+    const response: any = await request('https://api.github.com/graphql', SEARCH_REPOSITORIES, {
         query,
     }, {
         Authorization: 'Bearer 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',
