@@ -1,0 +1,68 @@
+.home-container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    padding: 8px;
+    color: black;
+    background-color: white;
+}
+
+.home-container > * {
+    margin: 0;
+    padding: 0;
+    margin-bottom: 20px;
+}
+
+.home-container > .search-field {
+    height: 40px;
+}
+
+.home-container > .search-results {
+    height: 800px;
+}
+
+.home-container > .search-results > .search-result-item {
+    display: flex;
+    justify-content: space-between;
+    margin: 0;
+    margin-bottom: 0.5em;
+    border: 1px solid black;
+    cursor: pointer;
+    background-color: plum;
+}
+
+.search-result-item p {
+    margin: 0.1em;
+    overflow: hidden;
+}
+
+.search-result-item > :first-child {
+    width: 40%;
+    display: flex;
+    align-items: center;
+}
+
+.search-result-item > :first-child > p {
+    padding: 0 8px;
+    font-weight: bold;
+}
+
+
+.search-result-item > :last-child {
+    width: 60%;
+}
+
+.home-container > .home-footer {
+    display: flex;
+    justify-content: center;
+}
+
+.home-container > .home-footer > .paggination > * {
+    margin: 0 8px;
+    cursor: pointer;
+}
+
+.home-container .home-footer .paggination .active {
+    font-weight: bold;
+    text-decoration: underline;
+}
