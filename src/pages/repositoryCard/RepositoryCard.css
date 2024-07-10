@@ -1,0 +1,40 @@
+h1, h2, ol {
+    margin: 0;
+}
+
+.repo-container {
+    min-width: 400px;
+    padding: 8px;
+    background-color: white;
+    color: black;
+}
+
+.repo-container > .forward-back {
+    text-decoration: none;
+}
+
+.repo-container > .header {
+    font-weight: 800;
+    font-size: 40px;
+}
+
+.repo-container .stars-commit-block {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.repo-container .owner-block {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 12px;
+}
+
+.repo-container .owner-block > img {
+    width: 120px;
+    height: 120px;
+}
+
+.languages-block, .description-block {
+    margin-bottom: 12px;
+}

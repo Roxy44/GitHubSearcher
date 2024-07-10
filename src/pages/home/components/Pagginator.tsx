@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react';
 
-const Pagginator = (props: { repositories: any, selectedPage: number, setSelectedPage: (value: number) => void, fetchMore: () => void }) => {
+import { EventCallable } from 'effector';
 
-    const {repositories, selectedPage, setSelectedPage, fetchMore} = props;
+const Pagginator = (props: { repositories: { length: number }, selectedPage: number, changeSelectedPage: EventCallable<number>}) => {
+
+    const {repositories, selectedPage, changeSelectedPage} = props;
 
     const [ pagginator, setPagginator ] = useState<number[]>([]);
 
@@ -34,7 +36,6 @@ const Pagginator = (props: { repositories: any, selectedPage: number, setSelecte
         if (pagginator.length !== 0 && pagginator[0] !== 1) {
             setPagginator(pagginator.map((item: number) => item - 1));
         }
-        fetchMore();
     };
 
     const rightArrowHandler = () => {
@@ -42,14 +43,13 @@ const Pagginator = (props: { repositories: any, selectedPage: number, setSelecte
         if (pagginator.length > 1 && pagginator[pagginator.length - 1] !== pagginationSize) {
             setPagginator(pagginator.map((item: number) => item + 1));
         }
-        fetchMore();
     };
 
     return (
         <footer className='home-footer' style={{display: pagginator.length !== 0 ? 'flex' : 'none'}}>
             <button onClick={leftArrowHandler}>{'<'}</button>
             <span className='paggination'>
-                {...pagginator.map((item: number) => <span className={item === selectedPage ? 'active' : ''} onClick={() => setSelectedPage(item)}>{item}</span>)}
+                {...pagginator.map((item: number) => <span className={item === selectedPage ? 'active' : ''} onClick={() => changeSelectedPage(item)}>{item}</span>)}
             </span>
             <button onClick={rightArrowHandler}>{'>'}</button>
         </footer>

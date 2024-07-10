@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';  
+import React, { useEffect } from 'react';  
 
 import { Link } from 'react-router-dom';
 
@@ -8,28 +8,39 @@ import { useUnit } from 'effector-react';
 import { 
     $inputValue, 
     $repositories,
+    $selectedPage,
+    changeSelectedPage,
     inputChanged,
-    fetchMore,
-    fetchDataFromGithub
-} from '../../shared/store/store';
+    fetchDataFromGithub,
+} from '../../shared/store/homeStore';
+import {
+    ownerChanged,
+    repoChanged,
+    searchRepository
+} from '../../shared/store/repositoryStore';
 
 import './Home.css';
 
 const HomeComponent = () => {
-    const [selectedPage, setSelectedPage] = useState(1);
-
-    const [inputValue, repositories, isLoading] = useUnit([
+    const [inputValue, repositories, selectedPage, isLoading] = useUnit([
         $inputValue, 
         $repositories, 
+        $selectedPage,
         fetchDataFromGithub.pending, 
     ]);
 
     useEffect(() => {
-        setSelectedPage(1);
-    }, [repositories]); 
+        inputChanged(localStorage.getItem('inputValue') || '');
+    }, []);
+    
+    const handleChange = (value: string) => {
+        inputChanged(value);
+    };
 
-    const handleChange = (event: any) => {
-        inputChanged(event.target.value);
+    const fetchRepository = (owner: string, repo: string) => {
+        ownerChanged(owner);
+        repoChanged(repo);
+        searchRepository();
     };
 
     return (
@@ -40,7 +51,7 @@ const HomeComponent = () => {
                 placeholder='Search for repositories...'
                 type='text'
                 value={inputValue} 
-                onChange={(e: React.ChangeEvent<HTMLInputElement>) => !isLoading && handleChange(e)}   
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) => !isLoading && handleChange(e.target.value)}   
             />
 
             <ul className='search-results' style={{display: repositories.length !== 0 ? 'block  ' : 'none'}}>
@@ -52,7 +63,7 @@ const HomeComponent = () => {
                         <div>
                             <p>{index + 1}</p>
                             <div>
-                                <p>Name: <Link to='/card'>{item.name}</Link></p>
+                                <p>Name: <Link to='/card' onClick={() => fetchRepository(item.owner.login, item.name)}>{item.name}</Link></p>
                                 <p>{`Stars: ${item.stargazerCount}`}</p>
                             </div>
                         </div>
@@ -66,7 +77,7 @@ const HomeComponent = () => {
 
             {isLoading ? <p>Loading...</p> : <p>Results: {repositories.length}</p>}
 
-            <Pagginator repositories={repositories} selectedPage={selectedPage} setSelectedPage={setSelectedPage} fetchMore={fetchMore} />
+            <Pagginator repositories={repositories} selectedPage={selectedPage} changeSelectedPage={changeSelectedPage} />
         </div>
     );
 };

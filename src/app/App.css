@@ -1,6 +1,7 @@
 .main {
     height: 900px;
     display: flex;
+    justify-content: center;
     padding: 10px 25%;
     box-sizing: content-box;
 }
