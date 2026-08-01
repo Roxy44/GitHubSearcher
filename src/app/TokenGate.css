@@ -1,0 +1,42 @@
+.token-gate {
+  width: 100%;
+  max-width: 480px;
+  margin-top: 80px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.token-gate h1 {
+  margin: 0;
+}
+
+.token-gate p {
+  margin: 0;
+  line-height: 1.4;
+}
+
+.token-gate form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.token-gate input {
+  padding: 10px 12px;
+  font-size: 16px;
+}
+
+.token-gate button {
+  padding: 10px 12px;
+  cursor: pointer;
+}
+
+.token-gate-error {
+  color: #b00020;
+}
+
+.token-gate-hint {
+  font-size: 14px;
+  opacity: 0.8;
+}
