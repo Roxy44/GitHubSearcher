@@ -51,7 +51,7 @@ const HomeComponent = () => {
                 placeholder='Search for repositories...'
                 type='text'
                 value={inputValue} 
-                onChange={(e: React.ChangeEvent<HTMLInputElement>) => !isLoading && handleChange(e.target.value)}   
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleChange(e.target.value)}   
             />
 
             <ul className='search-results' style={{display: repositories.length !== 0 ? 'block  ' : 'none'}}>
