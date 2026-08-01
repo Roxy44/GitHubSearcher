@@ -1,6 +1,7 @@
 import { createEffect, createEvent, createStore, sample } from 'effector';
 import { request } from 'graphql-request';
 import { SEARCH_REPOSITORIES } from '../../api/queries';
+import { getGithubAuthHeaders } from '../lib/githubAuth';
 
 // Event for input change
 export const inputChanged = createEvent<string>();
@@ -17,11 +18,12 @@ export const $inputValue = createStore(localStorage.getItem('inputValue') || '')
 export const $repositories = createStore<object[]>([]).reset(inputChanged);
 
 export const fetchDataFromGithub = createEffect(async (query: string) => {
-    const response: { search: { edges: { node: object }[] } } = await request('https://api.github.com/graphql', SEARCH_REPOSITORIES, {
-        query,
-    }, {
-        Authorization: 'Bearer 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',
-    });
+    const response: { search: { edges: { node: object }[] } } = await request(
+        'https://api.github.com/graphql',
+        SEARCH_REPOSITORIES,
+        { query },
+        getGithubAuthHeaders(),
+    );
     return response.search;
 });
 

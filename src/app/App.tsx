@@ -10,7 +10,7 @@ import './App.css';
 
 function App() {
     return (
-        <BrowserRouter basename='/'>
+        <BrowserRouter basename={import.meta.env.BASE_URL}>
             <div className='main'>
                 <ApolloProvider client={client}>
                     <Routes>           

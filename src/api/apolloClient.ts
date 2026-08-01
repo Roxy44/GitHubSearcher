@@ -1,11 +1,10 @@
 import { ApolloClient, InMemoryCache, HttpLink } from "@apollo/client";
+import { getGithubAuthHeaders } from "../shared/lib/githubAuth";
 
 const client = new ApolloClient({
   link: new HttpLink({
     uri: "https://api.github.com/graphql",
-    headers: {
-      authorization: `Bearer ${process.env.REACT_APP_GITHUB_TOKEN}`,
-    },
+    headers: getGithubAuthHeaders(),
   }),
   cache: new InMemoryCache(),
 });
